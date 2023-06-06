@@ -32,13 +32,31 @@ fact_extraction_prompt = PromptTemplate(
 )
 
 
+st.title("🧠 Chat with your Youtube Videos 🤖")
+
+st.sidebar.markdown(
+    """
+    ### Steps:
+    1. Enter Youtube URL link
+    2. Enter Your Secret Key from OpenAI
+    3. Get You tube Video summaries in diff formats. 
+**Note : File content and API key not stored in any form.**
+    """
+)
+
+api = st.sidebar.text_input(
+            "**Enter OpenAI API Key**",
+            type="password",
+            placeholder="sk-",
+            help="https://platform.openai.com/account/api-keys",
+        )
 
 prompt = PromptTemplate(
     input_variables=["docs"],
     template="Please summarise the following text in two short bullet points. \n {docs}"
 )
-
-llm = OpenAI(temperature=0.1, model_name="text-davinci-003",max_tokens=512)
+if api:
+    llm = OpenAI(temperature=0.1,openai_api_key=api, model_name="text-davinci-003",max_tokens=512)
 
 #st.image("https://seeklogo.com/images/Y/youtube-icon-logo-521820CDD7-seeklogo.com.png")
 video_url = st.text_input("Enter your Youtube URL: ")
@@ -118,7 +136,7 @@ def getChunks(result):
     return summ
         #summarized_text.append(out)
         #      
-if st.button("Generate Summary",type='primary'):
+if st.button("Generate Summary",type='primary') and api:
     with st.spinner(text="In progress..."):
         strtext=""
         if (video_id == ""):
