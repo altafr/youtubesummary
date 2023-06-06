@@ -1,4 +1,4 @@
-langchain==0.0.162
-streamlit==1.20.0
-youtube_transcript_api==0.5.0
-openai==0.10.2
+langchain==0.0.166
+streamlit==1.22.0
+youtube_transcript_api==0.6.0
+openai==0.27.7
